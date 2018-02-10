@@ -25,7 +25,7 @@ class Common(Configuration):
     # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'fwl_&2_)kg#z6r#d2#ai6r40_gd$tunqq^d-jy7a952d-9pf(!'
+    SECRET_KEY = os.environ['SECRET_KEY']
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = False
