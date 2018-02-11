@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 
+
 def user_page(request, user_id):
     return HttpResponse(
         '<title>User page</title>'
