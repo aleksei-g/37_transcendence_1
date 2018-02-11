@@ -24,13 +24,27 @@ settings.
  (default value).
 
 # Run and using
+Create database and make migrations:
+```
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+```
 Run the application use the command:
 ```
-python3 manage.py runserver 127.0.0.1:8000
+$ python3 manage.py runserver 127.0.0.1:8000
 ```
-The application will be available by link [127.0.0.1:8000](127.0.0.1:8000).
+The application will be available by link [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+Add user in db and get user id:
+```
+$ python3 manage.py shell
+>>> from django.contrib.auth.models import User
+>>> user = User.objects.create_user(username='John', first_name='John', last_name='Lennon', email='lennon@thebeatles.com', password='johnpassword')
+>>> user.id
+1 
+```
 Information about the user is available by link 
-[127.0.0.1:8000/users/123/](127.0.0.1:8000/users/123/), where *123* is user id.
+[http://127.0.0.1:8000/users/1/](http://127.0.0.1:8000/users/1/), where *1* is user id.
 
 
 

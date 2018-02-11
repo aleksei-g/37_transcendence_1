@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ user.username }} | User page</title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Информация о пользователе {{ user.username }}</h4>
+      <p><b>Ник:</b>
+        {{ user.username }}</p>
+      <p><b>E-mail:</b> {{ user.email }}</p>
+      <p><b>ФИО:</b>
+        {{ user.first_name }} {{ user.last_name }}
+      </p>
+      <p><b>Дата регистрации:</b> {{ user.date_joined }}</p>
+    </div>
+  </div>
+</body>
+</html>
