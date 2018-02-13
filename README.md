@@ -14,7 +14,7 @@ At the moment, the basic project is deployed on Django 2.0 and configured:
 ```
 pip3 install -r requirements.txt
 ```
-2. Set the value of the environment variable **SECRET_KEY** used in django 
+2. Set the value of the environment variable **DJANGO_SECRET_KEY** used in django 
 settings.
 3. Sign up on [Sentry](https://sentry.io/), create a new project in your account
  and get DSN (https://****@sentry.io/286271). Use this DSN in environment 

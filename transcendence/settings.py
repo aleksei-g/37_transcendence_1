@@ -1,17 +1,17 @@
 import os
 import raven
-from configurations import Configuration
+from configurations import Configuration, values
 
 
-class Common(Configuration):
+class Base(Configuration):
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = values.SecretValue()
 
-    DEBUG = False
+    DEBUG = values.BooleanValue(False)
 
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
 
     INSTALLED_APPS = [
         'django.contrib.admin',
@@ -20,7 +20,6 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'raven.contrib.django.raven_compat',
         'accounts',
     ]
 
@@ -92,8 +91,20 @@ class Common(Configuration):
 
     STATIC_URL = '/static/'
 
+
+class Dev(Base):
+    DEBUG = values.BooleanValue(True)
+
+
+class Prod(Base):
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+]
     RAVEN_CONFIG = {
-        'dsn': os.environ.get('RAVEN_DSN'),
+        'dsn': values.SecretValue(
+            environ_prefix=None,
+            environ_name='RAVEN_DSN'
+        ),
     }
 
     LOGGING = {
@@ -140,12 +151,3 @@ class Common(Configuration):
             },
         },
     }
-
-
-class Dev(Common):
-    DEBUG = True
-
-
-class Prod(Common):
-    DEBUG = False
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
