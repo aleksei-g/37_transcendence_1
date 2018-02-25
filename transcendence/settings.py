@@ -91,19 +91,41 @@ class Base(Configuration):
 
     STATIC_URL = '/static/'
 
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 class Dev(Base):
     DEBUG = values.BooleanValue(True)
 
 
 class Prod(Base):
+    ALLOWED_HOSTS = values.ListValue()
     INSTALLED_APPS = Base.INSTALLED_APPS + [
         'raven.contrib.django.raven_compat',
-]
+    ]
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': values.Value(
+                environ_prefix=None,
+                environ_name='db_name',
+            ),
+            'USER': values.Value(
+                environ_prefix=None,
+                environ_name='db_user',
+            ),
+            'PASSWORD': values.Value(
+                environ_prefix=None,
+                environ_name='db_password',
+            ),
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
     RAVEN_CONFIG = {
-        'dsn': values.SecretValue(
+        'dsn': values.Value(
             environ_prefix=None,
-            environ_name='RAVEN_DSN'
+            environ_name='RAVEN_DSN',
         ),
     }
 
