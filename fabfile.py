@@ -1,5 +1,6 @@
 import os
-from fabric.api import cd, env, run, task, shell_env, put, sudo, with_settings
+from fabric.api import cd, env, run, task, shell_env, put, sudo, with_settings,\
+    hide, settings
 from fabric.contrib.files import exists
 from fabtools import deb, require
 from fabtools.python import virtualenv
@@ -51,6 +52,20 @@ def make_dir(path=None):
         run('mkdir -p {}'.format(path))
 
 
+def user_exists(name):
+    with settings(
+            hide('running', 'stdout', 'stderr', 'warnings'),
+            cd('~postgres'),
+            warn_only=True,
+    ):
+        res = sudo(
+            '''psql -t -A -c "SELECT COUNT(*) FROM pg_user
+                        WHERE usename = '{}';"'''.format(name),
+            user='postgres',
+        )
+    return '1' in res
+
+
 @task
 def debian_install(packages=env.get('system_packages')):
     deb.install(packages.split(' '), update=True)
@@ -60,11 +75,17 @@ def debian_install(packages=env.get('system_packages')):
 def setup_postgresql(db_user=env.get('db_user'),
                      db_password=env.get('db_password')):
     require.postgres.server()
-    require.postgres.user(db_user, password=db_password, createdb=True)
+    if not user_exists(db_user):
+        require.postgres.create_user(
+            db_user,
+            password=db_password,
+            createdb=True,
+        )
 
 
 @task
 def create_db(db_name=env.get('db_name'), db_user=env.get('db_user')):
+    make_dir('/var/lib/locales/supported.d/')
     require.postgres.database(db_name, owner=db_user)
 
 

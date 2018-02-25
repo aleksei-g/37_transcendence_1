@@ -11,3 +11,4 @@ __pycache__/
 .server_conf
 
 db.sqlite3
+server_name.txt

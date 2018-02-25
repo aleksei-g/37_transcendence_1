@@ -3,6 +3,8 @@
 This project implements a social network. It will include user registration, 
 user profiles, wall, private messages and API.
 
+The current version of the project is available by address [http://159.65.234.74](http://159.65.234.74).
+
 ### Currently implemented:
 At the moment, the basic project is deployed on Django 2.0 and configured:
  * added view to display information about the user
