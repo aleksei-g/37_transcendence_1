@@ -51,18 +51,17 @@ def make_dir(path=None):
     if path and not exists(path):
         run('mkdir -p {}'.format(path))
 
-
+@with_settings(
+    hide('running', 'stdout', 'stderr', 'warnings'),
+    cd('~postgres'),
+    warn_only=True,
+)
 def user_exists(name):
-    with settings(
-            hide('running', 'stdout', 'stderr', 'warnings'),
-            cd('~postgres'),
-            warn_only=True,
-    ):
-        res = sudo(
-            '''psql -t -A -c "SELECT COUNT(*) FROM pg_user
-                        WHERE usename = '{}';"'''.format(name),
-            user='postgres',
-        )
+    res = sudo(
+        '''psql -t -A -c "SELECT COUNT(*) FROM pg_user
+                    WHERE usename = '{}';"'''.format(name),
+        user='postgres',
+    )
     return '1' in res
 
 
