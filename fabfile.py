@@ -1,6 +1,6 @@
 import os
-from fabric.api import cd, env, run, task, shell_env, put, sudo, with_settings,\
-    hide, settings
+from fabric.api import cd, env, run, task, shell_env, put, with_settings,\
+    hide, sudo
 from fabric.contrib.files import exists
 from fabtools import deb, require
 from fabtools.python import virtualenv
@@ -50,6 +50,7 @@ env.system_packages = (
 def make_dir(path=None):
     if path and not exists(path):
         run('mkdir -p {}'.format(path))
+
 
 @with_settings(
     hide('running', 'stdout', 'stderr', 'warnings'),
