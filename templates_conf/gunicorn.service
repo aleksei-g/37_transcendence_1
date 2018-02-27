@@ -6,7 +6,7 @@ After=network.target
 User={{ user }}
 Group=www-data
 Environment=DJANGO_SECRET_KEY={{ DJANGO_SECRET_KEY }} DJANGO_ALLOWED_HOSTS={{ DJANGO_ALLOWED_HOSTS }} RAVEN_DSN={{ RAVEN_DSN }} db_name={{ db_name }} db_user={{ db_user }} db_password={{ db_password }}
-WorkingDirectory={{ project_path }}
+WorkingDirectory={{ src_path }}
 ExecStart={{ virtualenv_path }}bin/gunicorn --access-logfile {% if gunicorn_access_logfile_path %}{{ gunicorn_access_logfile_path }}{% else %}-{% endif %} --error-logfile {% if gunicorn_error_logfile_path %}{{ gunicorn_error_logfile_path }}{% else %}-{% endif %} {% if gunicorn_loglevel %} --log-level {{ gunicorn_loglevel }} {% endif %} {% if number_of_workers %}--workers {{ number_of_workers }}{% endif %} --bind {{ socket_to_bind }} {{ project_name }}.wsgi:application
 
 [Install]

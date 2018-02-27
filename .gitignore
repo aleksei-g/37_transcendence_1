@@ -8,7 +8,7 @@ __pycache__/
 
 # environment variables
 .env
-.server_conf
+.server_conf*
 
 db.sqlite3
 server_name.txt

@@ -10,6 +10,7 @@ At the moment, the basic project is deployed on Django 2.0 and configured:
  * added view to display information about the user
  * set up error logging in [Sentry](https://sentry.io/)
  * for configuration management used [django-configurations](https://github.com/jazzband/django-configurations)
+ * deployment of the project on the production server using fabric script
 
 # Local installing
 1. Create a directory and go to it. Clone project into this folder:
@@ -21,7 +22,7 @@ $ git clone https://github.com/aleksei-g/37_transcendence_1.git
 2. Create a virtual environment with Python 3.5 and install all required 
 packeges:
 ```
-$ python3.5 -m venv virtualenvs_path
+$ python3.5 -m venv virtualenv_path
 $ source virtualenv_path/bin/activate
 (virtualenv_path) $ pip install -r requirements.txt
 ```
@@ -79,11 +80,11 @@ Required variables:
  * **repo_url** - link on remote repository project
  * **DJANGO_SECRET_KEY** - This is used to provide cryptographic signing, 
  and should be set to a unique, unpredictable value.
- * **DJANGO_ALLOWED_HOSTS** - host/domain names that this Django site can serve. 
+ * **DJANGO_ALLOWED_HOSTS** - host/domain names that this Django site can serve
+ and specifies the virtual server nginx. 
  * **db_name** - name database on Postgresql used for Django site
  * **db_user** - username to connect to the database on Postgresql
- * **db_password** - user password  to connect to the database on Postgresql
- * **server_name** - specifies the virtual server nginx.
+ * **db_password** - user password  to connect to the database on Postgresql.
  
 In project path with active virtual environment use the following command 
 to run deploying project on remote server:
