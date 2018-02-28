@@ -54,7 +54,7 @@ def create_virtualenv():
         run('python3 -m venv {}'.format(env.virtualenv_path))
 
 
-def requirements_install():
+def install_requirements():
     requirements_file = os.path.join(
         env.get('src_path'),
         'requirements.txt',
@@ -168,7 +168,7 @@ def bootstrap():
     with cd(env.src_path):
         get_latest_source()
         with virtualenv(env.virtualenv_path):
-            requirements_install()
+            install_requirements()
             with shell_env(
                 DJANGO_SECRET_KEY=env.get('DJANGO_SECRET_KEY'),
                 db_name=env.get('db_name'),
