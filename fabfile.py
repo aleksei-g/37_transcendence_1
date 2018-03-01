@@ -8,9 +8,12 @@ from io import StringIO
 from fabric_helpers import set_env, user_exists
 
 
-def make_dir(path=None):
+def make_dir(path=None, use_sudo=False):
     if path and not exists(path):
-        run('mkdir -p {}'.format(path))
+        if use_sudo:
+            sudo('mkdir -p {}'.format(path))
+        else:
+            run('mkdir -p {}'.format(path))
 
 
 def install_system_packages():
@@ -24,7 +27,7 @@ def make_all_required_dir():
     make_dir(os.path.dirname(env.gunicorn_error_logfile_path))
     make_dir(os.path.dirname(env.nginx_access_logfile_path))
     make_dir(os.path.dirname(env.nginx_error_logfile_path))
-    make_dir('/var/lib/locales/supported.d/')
+    make_dir('/var/lib/locales/supported.d/', True)
 
 
 def setup_postgresql():
