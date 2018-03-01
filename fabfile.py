@@ -143,6 +143,7 @@ def create_nginx_conf():
         ),
     ):
         sudo('ln -s {} /etc/nginx/sites-enabled'.format(env.nginx_file_path))
+    sudo('rm -f /etc/nginx/sites-enabled/default')
 
 
 @task
