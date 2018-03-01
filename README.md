@@ -81,7 +81,8 @@ Required variables:
  * **DJANGO_SECRET_KEY** - This is used to provide cryptographic signing, 
  and should be set to a unique, unpredictable value.
  * **DJANGO_ALLOWED_HOSTS** - host/domain names that this Django site can serve
- and specifies the virtual server nginx. 
+ and specifies the virtual server nginx. To separate variables use '**,**'
+  (192.168.1.1,www.site.com).
  * **db_name** - name database on Postgresql used for Django site
  * **db_user** - username to connect to the database on Postgresql
  * **db_password** - user password  to connect to the database on Postgresql.
